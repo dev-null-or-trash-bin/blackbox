@@ -16,7 +16,7 @@ doctrine:
         types:
             json: Sonata\Doctrine\Types\JsonType
 sonata_user:
-    security_acl:             true
+    security_acl:             false
     table:
         user_group:           fos_user_user_group
 
@@ -48,7 +48,7 @@ sonata_user:
             controller:     SonataAdminBundle:CRUD
             translation:    SonataUserBundle
             
-security:
+#security:
     # [...]
-    acl:
-        connection: default
+    #acl:
+        #connection: default
