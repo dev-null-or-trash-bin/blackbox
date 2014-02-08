@@ -33,8 +33,6 @@ class AppKernel extends Kernel
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Via\Bundle\CoreBundle\ViaCoreBundle(),
-            new Via\Bundle\ProductBundle\ViaProductBundle(),
-            new Via\Bundle\VariableProductBundle\ViaVariableProductBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
