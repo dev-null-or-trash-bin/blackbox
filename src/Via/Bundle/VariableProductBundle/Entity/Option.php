@@ -1,5 +1,6 @@
 <?php
-namespace Via\Bundle\ProductBundle\Entity;
+
+namespace Via\Bundle\VariableProductBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -7,44 +8,40 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * Option
+ *
+ * @ORM\Table(name="via_option")
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="via_property")
- * @ORM\Entity
+ * 
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\PropertyTranslation")
+ * #@Gedmo\TranslationEntity(class="Via\Bundle\VariableProductBundle\Entity\OptionTranslation")
  */
-class Property implements PropertyInterface
+class Option implements OptionInterface
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
-    
+    private $id;
+
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    protected $name;
-    
+    private $name;
+
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="presentation", type="string", length=255, nullable=false)
      */
-    protected $presentation;
-    
-    /**
-     * Type.
-     * @ORM\Column(name="type", type="string", length=255, nullable=false)
-     */
-    protected $type;
-    
+    private $presentation;
+
     /**
      * Creation time.
      *
@@ -73,107 +70,157 @@ class Property implements PropertyInterface
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\PropertyTranslation", mappedBy="object", cascade={"all"})
-     *
-     */
-    protected $translations;
-    
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="property")
+     * @ORM\OneToMany(targetEntity="OptionValue", mappedBy="option", cascade={"all"})
      */
-    protected $products;
-    
+    protected $values;
+
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-        $this->products = new ArrayCollection();
-        $this->translations = new ArrayCollection();
+        $this->values = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
-    
+
     public function __toString()
     {
         return ($this->getName()) ? : '';
     }
 
-	public function getId()
+    /**
+     * {@inheritdoc}
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
-    public function getType()
+    /**
+     * {@inheritdoc}
+     */
+    public function getPresentation()
     {
-        return $this->type;
+        return $this->presentation;
     }
 
-    public function setType($type)
+    /**
+     * {@inheritdoc}
+     */
+    public function setPresentation($presentation)
     {
-        $this->type = $type;
+        $this->presentation = $presentation;
+
         return $this;
     }
-    
-    public function getTranslations()
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getValues()
     {
-        return $this->translations;
+        return $this->values;
     }
-    
-    public function addTranslation(PropertyTranslation $t)
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setValues(Collection $values)
     {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
-    }
-    
-    public function removeTranslation(PropertyTranslation $translation)
-    {
-        if ($this->translations->contains($translation)) {
-            $this->translations->removeElement($translation);
-        }
+        $this->values = $values;
+
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addValue(OptionValueInterface $value)
+    {
+        if (!$this->hasValue($value)) {
+            $value->setOption($this);
+            $this->values->add($value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeValue(OptionValueInterface $value)
+    {
+        if ($this->hasValue($value)) {
+            $this->values->removeElement($value);
+            $value->setOption(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasValue(OptionValueInterface $value)
+    {
+        return $this->values->contains($value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
     
@@ -186,16 +233,5 @@ class Property implements PropertyInterface
     {
         $this->deletedAt = $deletedAt;
     }
-    
-    public function getPresentation()
-    {
-        return $this->presentation;
-    }
-    
-    public function setPresentation($presentation)
-    {
-        $this->presentation = $presentation;
-        return $this;
-    }
-	
+
 }

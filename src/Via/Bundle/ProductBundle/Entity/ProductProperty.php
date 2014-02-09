@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="product_property")
+ * @ORM\Table(name="via_product_property")
  * @ORM\Entity(repositoryClass="Via\Bundle\ProductBundle\Repository\ProductPropertyRepository")
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)

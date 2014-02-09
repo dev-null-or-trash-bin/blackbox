@@ -1,5 +1,5 @@
 <?php
-namespace Via\Bundle\ProductBundle\Admin;
+namespace Via\Bundle\VariableProductBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -7,9 +7,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class ProductAdmin extends Admin
+class VariantAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-product';
+    protected $baseRoutePattern = 'via-variant';
     
     // protected $translationDomain = 'messages'; // default is 'messages'
     // Fields to be shown on create/edit forms
@@ -18,14 +18,6 @@ class ProductAdmin extends Admin
         $formMapper->with('via.tab.label.product',array(
             
         ))
-        
-        ->add('sku', 'text', array(
-            'label' => 'via.product.form.sku',
-        ))
-        ->add('price', 'money', array(
-            'label' => 'via.product.form.price',
-        ))
-        
         ->add('translations', 'a2lix_translations_gedmo', array(
             'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Product',
             'by_reference' => false,
@@ -49,7 +41,6 @@ class ProductAdmin extends Admin
 //                     'label' => 'via.form.label.product.description'
 //                 )
 //             )
-        
         ))
         ;
         
@@ -58,18 +49,16 @@ class ProductAdmin extends Admin
         ->add('properties', 'sonata_type_collection', array(
             'required' => false,
             'by_reference' => false,
-            'label' => 'via.tab.label.properties',            
+            'label' => 'via.tab.label.properties',
+            'type_options' => array(
+                #'btn_add' => true
+            )
         ), array(
             'edit' => 'inline',
             'inline' => 'table',
             #'allow_add' => false,
             #'allow_delete' => true,
-        ))  
-        ;
-        
-        $formMapper->with('via.tab.label.options', array(
-        ))
-        
+        ))        
         ;
     }
 
