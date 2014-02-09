@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Via\Bundle\CoreBundle\Entity\Product as CoreProduct;
 
 /**
  * @ORM\Entity
@@ -14,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\ProductTranslation")
  */
-class Product implements ProductInterface
+class Product extends CoreProduct implements ProductInterface
 {   
     /**
      * @ORM\Id
@@ -77,6 +78,13 @@ class Product implements ProductInterface
      * 
      */
     protected $translations;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $properties;
     
     
     public function __construct()
@@ -184,5 +192,92 @@ class Product implements ProductInterface
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getProperties()
+    {
+        return $this->properties;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setProperties(Collection $properties)
+    {
+        foreach ($properties as $property) {
+            $this->addProperty($property);
+        }
+    
+        return $this;
+    }
+    
+    public function addPropertie (ProductPropertyInterface $property)
+    {
+        $this->addProperty($property);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function addProperty(ProductPropertyInterface $property)
+    {
+        if (!$this->hasProperty($property)) {
+            $property->setProduct($this);
+            $this->properties->add($property);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function removeProperty(ProductPropertyInterface $property)
+    {
+        if ($this->hasProperty($property)) {
+            $property->setProduct(null);
+            $this->properties->removeElement($property);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function hasProperty(ProductPropertyInterface $property)
+    {
+        return $this->properties->contains($property);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function hasPropertyByName($propertyName)
+    {
+        foreach ($this->properties as $property) {
+            if ($property->getName() === $propertyName) {
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getPropertyByName($propertyName)
+    {
+        foreach ($this->properties as $property) {
+            if ($property->getName() === $propertyName) {
+                return $property;
+            }
+        }
+    
+        return null;
     }
 }

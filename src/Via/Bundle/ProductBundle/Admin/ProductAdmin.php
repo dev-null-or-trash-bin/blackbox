@@ -43,6 +43,23 @@ class ProductAdmin extends Admin
 //             )
         ))
         ;
+        
+        $formMapper->with('via.tab.label.properties', array(
+        ))
+        ->add('properties', 'sonata_type_collection', array(
+            'required' => false,
+            'by_reference' => false,
+            'label' => 'via.tab.label.properties',
+            'type_options' => array(
+                #'btn_add' => true
+            )
+        ), array(
+            'edit' => 'inline',
+            'inline' => 'table',
+            #'allow_add' => false,
+            #'allow_delete' => true,
+        ))        
+        ;
     }
 
     /**
