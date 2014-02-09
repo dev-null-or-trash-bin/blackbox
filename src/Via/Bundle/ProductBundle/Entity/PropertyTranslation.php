@@ -6,7 +6,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="property_translation",
+ * @ORM\Table(name="via_property_translation",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
  *         "locale", "object_id", "field"
  *     })}

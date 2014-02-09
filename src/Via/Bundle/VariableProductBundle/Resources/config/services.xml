@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    
+    <parameters>
+        <parameter key="via.entity.option.class">Via\Bundle\VariableProductBundle\Entity\Option</parameter>        
+        <parameter key="via.repository.option.class">Via\Bundle\VariableProductBundle\Repository\OptionRepository</parameter>        
+        <parameter key="via.sonata.admin.option.class">Via\Bundle\VariableProductBundle\Admin\OptionAdmin</parameter>
+        <parameter key="via.entity.option_value.class">Via\Bundle\VariableProductBundle\Entity\OptionValue</parameter>        
+        <parameter key="via.repository.option_value.class">Via\Bundle\VariableProductBundle\Repository\OptionValueRepository</parameter>        
+        <parameter key="via.sonata.admin.option_value.class">Via\Bundle\VariableProductBundle\Admin\OptionValueAdmin</parameter>
+        
+        <parameter key="via.form.type.option.class">Via\Bundle\VariableProductBundle\Form\Type\OptionType</parameter>
+        <parameter key="via.form.type.option_choice.class">Via\Bundle\VariableProductBundle\Form\Type\OptionEntityChoiceType</parameter>
+        <parameter key="via.form.type.option_value.class">Via\Bundle\VariableProductBundle\Form\Type\OptionValueType</parameter>
+    </parameters>
+
+    <services>
+        <service id="via.sonata.admin.option" class="%via.sonata.admin.option.class%">
+          <tag name="sonata.admin" manager_type="orm" 
+                group="Content" 
+                label="via.admin.dashboard.option"
+           		label_translator_strategy="sonata.admin.label.strategy.noop"
+           		show_in_dashboard="true"     
+           />          
+          <argument />
+          <argument>%via.entity.option.class%</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>messages</argument>
+          </call>
+      </service>
+      
+      <service id="via.sonata.admin.option_value" class="%via.sonata.admin.option_value.class%">
+          <tag name="sonata.admin" manager_type="orm" 
+                group="Content" 
+                label="via.admin.dashboard.option_value"
+           		label_translator_strategy="sonata.admin.label.strategy.noop"
+           		show_in_dashboard="false"     
+           />          
+          <argument />
+          <argument>%via.entity.option_value.class%</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>messages</argument>
+          </call>
+      </service>
+      
+      <service id="via.form.type.option_choice" class="%via.form.type.option_choice.class%">
+            <argument>%via.entity.option.class%</argument>
+            <tag name="form.type" alias="via_option_choice" />
+        </service>
+        
+        <service id="via.form.type.option_value" class="%via.form.type.option_value.class%">
+            <argument>%via.entity.option_value.class%</argument>            
+            <tag name="form.type" alias="via_option_value" />
+        </service>
+        
+        <service id="via.form.type.option" class="%via.form.type.option.class%">
+            <argument>%via.entity.option.class%</argument>            
+            <tag name="form.type" alias="via_option" />
+        </service>
+      
+      <!--service id="via.manager.option" alias="doctrine.orm.entity_manager" />
+        <service id="via.repository.option" class="%via.repository.option.class%">
+            <argument type="service" id="via.manager.option" />
+            <argument type="service">
+                <service
+                        factory-service="doctrine.orm.default_entity_manager"
+                        factory-method="getClassMetadata"
+                        class="Doctrine\ORM\Mapping\ClassMetadata"
+                        >
+                    <argument>%via.entity.option.class%</argument>
+                </service>
+            </argument>
+        </service>
+      
+        <service id="via.form.type.option" class="%via.form.type.option.class%">
+            <argument>%via.model.option.class%</argument>
+            <argument>%via.validation_group.option%</argument>
+            <tag name="form.type" alias="via_option" />
+        </service>
+        
+
+        <service id="via.form.type.option_value" class="%via.form.type.option_value.class%">
+            <argument>%via.model.option_value.class%</argument>
+            <argument>%via.validation_group.option_value%</argument>
+            <tag name="form.type" alias="via_option_value" />
+        </service>
+        <service id="via.form.type.option_value_choice" class="%via.form.type.option_value_choice.class%">
+            <tag name="form.type" alias="via_option_value_choice" />
+        </service>
+        <service id="via.form.type.option_value_collection" class="%via.form.type.option_value_collection.class%">
+            <tag name="form.type" alias="via_option_value_collection" />
+        </service -->
+      
+       
+      
+    </services>
+    
+</container>

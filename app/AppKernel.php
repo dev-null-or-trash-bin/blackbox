@@ -39,7 +39,8 @@ class AppKernel extends Kernel
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             
             new Via\Bundle\ProductBundle\ViaProductBundle(),
-            new Via\Bundle\CoreBundle\ViaCoreBundle()
+            new Via\Bundle\CoreBundle\ViaCoreBundle(),
+            new Via\Bundle\VariableProductBundle\ViaVariableProductBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
