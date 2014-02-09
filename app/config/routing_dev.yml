@@ -13,3 +13,5 @@ _configurator:
 _main:
     resource: routing.yml
 
+demo:
+    resource: "@ViaDemoBundle/Resources/config/routing.xml"

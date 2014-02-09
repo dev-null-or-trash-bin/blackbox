@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Via\Bundle\ProductBundle\ViaProductBundle;
 
 class AppKernel extends Kernel
 {
@@ -16,6 +17,8 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
@@ -32,7 +35,11 @@ class AppKernel extends Kernel
             
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
-            new Via\Bundle\CoreBundle\ViaCoreBundle(),
+            
+            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            
+            new Via\Bundle\ProductBundle\ViaProductBundle(),
+            new Via\Bundle\CoreBundle\ViaCoreBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -40,6 +47,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
+            $bundles[] = new Via\DemoBundle\ViaDemoBundle();
         }
 
         return $bundles;

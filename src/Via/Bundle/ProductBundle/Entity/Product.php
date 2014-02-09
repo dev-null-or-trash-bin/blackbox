@@ -5,17 +5,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
- * @ORM\MappedSuperclass
- * @ORM\MappedSuperclass(repositoryClass="Via\Bundle\ProductBundle\Repository\ProductRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="product")
+ * 
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\ProductTranslation")
  */
-class Product implements ProductInterface, Translatable
-{
+class Product implements ProductInterface
+{   
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -25,13 +25,13 @@ class Product implements ProductInterface, Translatable
     
     /**
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=80)
      */
     protected $name;
     
     /**
      * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="description", type="text")
      */
     protected $description;
     
@@ -39,16 +39,9 @@ class Product implements ProductInterface, Translatable
      * short description
      *
      * @Gedmo\Translatable
-     * @ORM\Column(type="text", length=250, nullable=true)
+     * @ORM\Column(name="short_description", type="string", length=255, nullable=true)
      */
     protected $shortDescription;
-        
-    /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    protected $locale;
     
     /**
      * Creation time.
@@ -74,36 +67,42 @@ class Product implements ProductInterface, Translatable
      * Deletion time.
      *
      * @var \DateTime
+     * 
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="stock_amount", type="integer", nullable=false)
+     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductTranslation", mappedBy="object", cascade={"persist", "remove"})
+     * 
      */
-    private $stockAmount;
+    protected $translations;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="vat_percent", type="decimal", precision=10, scale=2, nullable=false)
-     */
-    private $vatPercent = '19.00';
     
-    /**
-     * @var ProductPropertyInterface[] \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
-     */
-    protected $properties;
-    
-    /**
-     * Constructor
-     */
     public function __construct()
+    {   
+        $this->translations = new ArrayCollection();
+    }
+    
+    public function getTranslations()
     {
-        $this->properties = new ArrayCollection();
+        return $this->translations;
+    }
+    
+    public function addTranslation(ProductTranslation $t)
+    {
+        if (!$this->translations->contains($t)) {
+            $this->translations[] = $t;
+            $t->setObject($this);
+        }
+    }
+    
+    public function removeTranslation(ProductTranslation $translation)
+    {
+        if ($this->translations->contains($translation)) {
+            $this->translations->removeElement($translation);
+        }
+        return $this;
     }
     
     public function __toString()
@@ -111,55 +110,79 @@ class Product implements ProductInterface, Translatable
         return ($this->getName()) ? : '';
     }
     
-    /**
-     * {@inheritdoc}
-     */
-    public function getPrice()
+    public function getId()
     {
-        return $this->getPrice();
+        return $this->id;
     }
     
-    /**
-     * {@inheritdoc}
-     */
-    public function setPrice($price)
+    public function setId($id)
     {
-        $this->setPrice($price);
-    
+        $this->id = $id;
         return $this;
     }
-    
-    /**
-     * {@inheritdoc}
-     */
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
     public function getShortDescription()
     {
         return $this->shortDescription;
     }
-    
-    /**
-     * {@inheritdoc}
-     */
+
     public function setShortDescription($shortDescription)
     {
         $this->shortDescription = $shortDescription;
-    
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
     
-    /**
-     * {@inheritdoc}
-     */
-    public function getImages()
+    public function getDeletedAt()
     {
-        return $this->getImages();
+        return $this->deletedAt;
     }
     
-    /**
-     * {@inheritdoc}
-     */
-    public function getImage()
+    public function setDeletedAt($deletedAt)
     {
-        return $this->getImages()->first();
+        $this->deletedAt = $deletedAt;
     }
 }
