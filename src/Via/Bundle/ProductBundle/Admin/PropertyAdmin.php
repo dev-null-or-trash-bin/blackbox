@@ -15,10 +15,13 @@ class PropertyAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('name', 'text', array(
-            'label' => 'via.form.property.name',            
-        ))->add('type', 'choice', array(
+            'label' => 'via.form.property.name',
+        ))
+        
+        ->add('type', 'choice', array(
             'label' => 'via.form.property.type',
             'choices' => PropertyTypes::getChoices()
+            
         ))->add('translations', 'a2lix_translations_gedmo', array(
             'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Property',
             'by_reference' => false,

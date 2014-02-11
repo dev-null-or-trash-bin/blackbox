@@ -14,10 +14,10 @@ class ProductPropertyAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-        ->add('property', 'sonata_type_model', array(    
+        ->add('property', 'sonata_type_model', array(
             'btn_add' => false,
             'btn_delete' => false,
-        ), array(            
+        ), array(
             
         ))
         ->add('translations', 'a2lix_translations_gedmo', array(
@@ -26,7 +26,7 @@ class ProductPropertyAdmin extends Admin
             'locales' => array(
                 'de',
                 'en'
-            ),            
+            ),
         ))
         ;
     }
@@ -35,8 +35,8 @@ class ProductPropertyAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-        ->add('property', null, array('label' => 'via.form.label.product_property.property'))
-        ->add('value', null, array('label' => 'via.form.label.product_property.value'))
+        ->add('property', null, array('label' => 'via.form.product_property.property'))
+        ->add('value', null, array('label' => 'via.form.product_property.value'))
         ;
     }
     
@@ -45,16 +45,16 @@ class ProductPropertyAdmin extends Admin
     {
         $listMapper
         ->addIdentifier('id')
-        ->add('presentation', null, array('label' => 'via.form.label.product_property.presentation'))
-        ->add('value', null, array('label' => 'via.form.label.product_property.value'))
-        ->add('product', null, array('label' => 'via.form.label.product_property.product'))
+        ->add('presentation', null, array('label' => 'via.form.product_property.presentation'))
+        ->add('value', null, array('label' => 'via.form.product_property.value'))
+        ->add('product', null, array('label' => 'via.form.product_property.product'))
         ->add('_action', 'actions', array(
             'actions' => array(
                 'view' => array(),
                 'edit' => array(),
                 #'new' => array(),
             ),
-            'label' => 'via.form.label.custom_action'
+            'label' => 'via.form.custom_action'
         ))
         ;
     }

@@ -7,11 +7,15 @@ use Doctrine\Common\Util\Debug;
 
 class EntityRepository extends BaseEntityRepository
 {
+    public function createNew()
+    {
+        $className = $this->getClassName();
+    
+        return new $className;
+    }
+    
     public function find($id)
     {
-        #echo __METHOD__;
-        #Debug::dump($this->getQueryBuilder()->andWhere($this->getAlias().'.id = '.intval($id))->getQuery()->getSQL());
-        #die();
         return $this
             ->getQueryBuilder()
             ->andWhere($this->getAlias().'.id = '.intval($id))
@@ -32,7 +36,7 @@ class EntityRepository extends BaseEntityRepository
 
     public function findOneBy(array $criteria)
     {
-        $queryBuilder = $this->getQueryBuilder();        
+        $queryBuilder = $this->getQueryBuilder();
         $this->applyCriteria($queryBuilder, $criteria);
 
         return $queryBuilder
@@ -60,10 +64,10 @@ class EntityRepository extends BaseEntityRepository
             ->getQuery()
             ->getResult()
         ;
-    }    
+    }
 
     protected function getQueryBuilder()
-    {        
+    {
         return $this->createQueryBuilder($this->getAlias());
     }
 
