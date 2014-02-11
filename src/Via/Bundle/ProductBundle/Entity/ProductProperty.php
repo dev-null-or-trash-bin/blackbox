@@ -27,7 +27,7 @@ class ProductProperty implements ProductPropertyInterface
      *
      * @ORM\ManyToOne(targetEntity="Via\Bundle\ProductBundle\Entity\Product", inversedBy="properties")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
      */
     protected $product;
@@ -37,7 +37,7 @@ class ProductProperty implements ProductPropertyInterface
      *
      * @ORM\ManyToOne(targetEntity="Via\Bundle\ProductBundle\Entity\Property", inversedBy="products")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="property_id", referencedColumnName="id", onDelete="CASCADE")
+     *   @ORM\JoinColumn(name="property_id", referencedColumnName="id")
      * })
      */
     protected $property;
@@ -78,8 +78,7 @@ class ProductProperty implements ProductPropertyInterface
      */
     protected $deletedAt;
     
-    public function __construct()
-    {}
+    public function __construct() {}
     
     public function __toString()
     {
@@ -192,7 +191,7 @@ class ProductProperty implements ProductPropertyInterface
     protected function assertPropertyIsSet()
     {
         if (null === $this->property) {
-            throw new \BadMethodCallException('The property have not been created yet so you cannot access proxy methods.');
+            #throw new \BadMethodCallException('The property have not been created yet so you cannot access proxy methods.');
         }
     }
     

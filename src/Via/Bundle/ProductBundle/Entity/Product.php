@@ -6,8 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Via\Bundle\VariableProductBundle\Entity\Variant;
-use Via\Bundle\VariableProductBundle\Entity\VariantInterface;
-use Via\Bundle\VariableProductBundle\Entity\OptionInterface;
+use Via\Bundle\VariableProductBundle\Entity\Option;
 
 /**
  * @ORM\Entity
@@ -258,7 +257,7 @@ class Product implements ProductInterface
         return $this;
     }
     
-    public function addPropertie (ProductPropertyInterface $property)
+    public function addPropertie (ProductProperty $property)
     {
         $this->addProperty($property);
     }
@@ -266,7 +265,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function addProperty(ProductPropertyInterface $property)
+    public function addProperty(ProductProperty $property)
     {
         if (!$this->hasProperty($property)) {
             $property->setProduct($this);
@@ -279,7 +278,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function removeProperty(ProductPropertyInterface $property)
+    public function removeProperty(ProductProperty $property)
     {
         if ($this->hasProperty($property)) {
             $property->setProduct(null);
@@ -292,7 +291,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function hasProperty(ProductPropertyInterface $property)
+    public function hasProperty(ProductProperty $property)
     {
         return $this->properties->contains($property);
     }
@@ -375,7 +374,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function setMasterVariant(VariantInterface $masterVariant)
+    public function setMasterVariant(Variant $masterVariant)
     {
         if ($this->variants->contains($masterVariant)) {
             return $this;
@@ -402,7 +401,7 @@ class Product implements ProductInterface
      */
     public function getVariants()
     {
-        return $this->variants->filter(function (VariantInterface $variant) {
+        return $this->variants->filter(function (Variant $variant) {
             return !$variant->isMaster();
         });
     }
@@ -412,7 +411,7 @@ class Product implements ProductInterface
      */
     public function getAvailableVariants()
     {
-        return $this->variants->filter(function (VariantInterface $variant) {
+        return $this->variants->filter(function (Variant $variant) {
             return !$variant->isMaster() && $variant->isAvailable();
         });
     }
@@ -434,7 +433,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function addVariant(VariantInterface $variant)
+    public function addVariant(Variant $variant)
     {
         if (!$this->hasVariant($variant)) {
             $variant->setProduct($this);
@@ -447,7 +446,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function removeVariant(VariantInterface $variant)
+    public function removeVariant(Variant $variant)
     {
         if ($this->hasVariant($variant)) {
             $variant->setProduct(null);
@@ -460,7 +459,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function hasVariant(VariantInterface $variant)
+    public function hasVariant(Variant $variant)
     {
         return $this->variants->contains($variant);
     }
@@ -494,7 +493,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function addOption(OptionInterface $option)
+    public function addOption(Option $option)
     {
         if (!$this->hasOption($option)) {
             $this->options->add($option);
@@ -506,7 +505,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function removeOption(OptionInterface $option)
+    public function removeOption(Option $option)
     {
         if ($this->hasOption($option)) {
             $this->options->removeElement($option);
@@ -518,7 +517,7 @@ class Product implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function hasOption(OptionInterface $option)
+    public function hasOption(Option $option)
     {
         return $this->options->contains($option);
     }
