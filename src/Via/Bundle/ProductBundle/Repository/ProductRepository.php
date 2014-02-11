@@ -10,16 +10,8 @@ use Via\Bundle\ProductBundle\Repository\ProductTranslationRepository;
  *
  * This is the Product entity repository class
  */
-class ProductRepository extends ProductTranslationRepository
+class ProductRepository extends VariableProductRepository
 {
-    /* public function find($id)
-    {
-        return $this
-        ->getCollectionQueryBuilder()
-        ->andWhere($this->getAlias().'.id = '.intval($id))
-        ->getQuery()
-        ->getArrayResult()
-        ;
-    } */
+    
     
 }

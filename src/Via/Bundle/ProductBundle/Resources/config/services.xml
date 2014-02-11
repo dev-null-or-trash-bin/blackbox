@@ -18,54 +18,58 @@
         <parameter key="via.sonata.admin.product.class">Via\Bundle\ProductBundle\Admin\ProductAdmin</parameter>
         <parameter key="via.sonata.admin.property.class">Via\Bundle\ProductBundle\Admin\PropertyAdmin</parameter>
         <parameter key="via.sonata.admin.product_property.class">Via\Bundle\ProductBundle\Admin\ProductPropertyAdmin</parameter>
+        
     </parameters>
 
     <services>
-        <service id="via.sonata.admin.product" class="%via.sonata.admin.product.class%">
-          <tag name="sonata.admin" manager_type="orm" 
-                group="Content" 
-                label="via.admin.dashboard.product"
-           		label_translator_strategy="sonata.admin.label.strategy.noop"     
-           />
-          <argument />
-          <argument>%via.entity.product.class%</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-          <argument type="service" id="service_container" />
-          <call method="setTranslationDomain">
-              <argument>messages</argument>
-          </call>
-      </service>
-      
-      <service id="via.sonata.admin.property" class="%via.sonata.admin.property.class%">
-          <tag name="sonata.admin" manager_type="orm" 
-                group="Content" 
-                label="via.admin.dashboard.property"
-           		label_translator_strategy="sonata.admin.label.strategy.noop"     
-           />
-          <argument />
-          <argument>%via.entity.property.class%</argument>
-          <argument>SonataAdminBundle:CRUD</argument>
-          <argument type="service" id="service_container" />
-          <call method="setTranslationDomain">
-              <argument>messages</argument>
-          </call>
-      </service>
-      
-      <service id="via.sonata.admin.product_property" class="%via.sonata.admin.product_property.class%">
-          <tag name="sonata.admin" manager_type="orm" 
-                group="Content" 
-                label="via.admin.dashboard.product_property"
-           		label_translator_strategy="sonata.admin.label.strategy.noop"
-           		show_in_dashboard="false"     
-           />          
-          <argument />
-          <argument>%via.entity.product_property.class%</argument>
-          <argument />
-          <call method="setTranslationDomain">
-              <argument>messages</argument>
-          </call>
-      </service>
-      
-    </services>
+	<service id="via.sonata.admin.product" class="%via.sonata.admin.product.class%">
+		<tag name="sonata.admin" manager_type="orm" group="Content"
+			label="via.admin.dashboard.product" label_translator_strategy="sonata.admin.label.strategy.noop" />
+		<argument />
+		<argument>%via.entity.product.class%</argument>
+		<argument>ViaVariableProductBundle:Variant</argument>
+		<argument type="service" id="service_container" />
+		<call method="setTranslationDomain">
+			<argument>messages</argument>
+		</call>
+	</service>
+
+	<service id="via.sonata.admin.property" class="%via.sonata.admin.property.class%">
+		<tag name="sonata.admin" manager_type="orm" group="Content"
+			label="via.admin.dashboard.property" label_translator_strategy="sonata.admin.label.strategy.noop" />
+		<argument />
+		<argument>%via.entity.property.class%</argument>
+		<argument>SonataAdminBundle:CRUD</argument>
+		<argument type="service" id="service_container" />
+		<call method="setTranslationDomain">
+			<argument>messages</argument>
+		</call>
+	</service>
+
+	<service id="via.sonata.admin.product_property" class="%via.sonata.admin.product_property.class%">
+		<tag name="sonata.admin" manager_type="orm" group="Content"
+			label="via.admin.dashboard.product_property"
+			label_translator_strategy="sonata.admin.label.strategy.noop"
+			show_in_dashboard="false" />
+		<argument />
+		<argument>%via.entity.product_property.class%</argument>
+		<argument />
+		<call method="setTranslationDomain">
+			<argument>messages</argument>
+		</call>
+	</service>
+
+	<service id="via.manager.product" alias="doctrine.orm.entity_manager" />
+	<service id="via.repository.product" class="%via.repository.option.class%">
+		<argument type="service" id="via.manager.product" />
+		<argument type="service">
+			<service factory-service="doctrine.orm.default_entity_manager"
+				factory-method="getClassMetadata" class="Doctrine\ORM\Mapping\ClassMetadata">
+				<argument>%via.entity.product.class%</argument>
+			</service>
+		</argument>
+	</service>
+
+</services>
     
 </container>

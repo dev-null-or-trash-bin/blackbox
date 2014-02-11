@@ -11,13 +11,13 @@ use Via\Bundle\VariableProductBundle\Entity\OptionInterface;
 /**
  * @ORM\Entity
  * @ORM\Table(name="via_product")
- * 
+ *
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\ProductTranslation")
  */
 class Product implements ProductInterface
-{   
+{
     /*
      * Variant selection methods.
     *
@@ -80,14 +80,14 @@ class Product implements ProductInterface
      * Deletion time.
      *
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
     
     /**
      * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductTranslation", mappedBy="object", cascade={"persist", "remove"})
-     * 
+     *
      */
     protected $translations;
     
@@ -101,13 +101,13 @@ class Product implements ProductInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Via\Bundle\VariableProductBundle\Entity\Option")
+     * @ORM\ManyToMany(targetEntity="Via\Bundle\VariableProductBundle\Entity\Option", cascade={"all"})
      * @ORM\JoinTable(name="via_product_option",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="option_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="option_id", referencedColumnName="id", onDelete="CASCADE")
      *   }
      * )
      */
@@ -122,7 +122,7 @@ class Product implements ProductInterface
     
     
     public function __construct()
-    {   
+    {
         $this->translations = new ArrayCollection();
         $this->properties = new ArrayCollection();
         $this->variants = new ArrayCollection();

@@ -9,12 +9,12 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class OptionValueAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-variant';
+    protected $baseRoutePattern = 'via-option-value';
     
     // protected $translationDomain = 'messages'; // default is 'messages'
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
-    {   
+    {
         $formMapper->with('via.tab.label.product',array(
             
         ))
