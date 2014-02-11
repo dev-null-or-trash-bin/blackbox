@@ -13,9 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="via_option")
  * @ORM\Entity
  * 
- * @Gedmo\Loggable
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * #@Gedmo\TranslationEntity(class="Via\Bundle\VariableProductBundle\Entity\OptionTranslation")
  */
 class Option implements OptionInterface
 {

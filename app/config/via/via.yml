@@ -8,28 +8,28 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         mappings:
-            gedmo_translatable:
-                type: annotation
-                prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
-                alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
-                is_bundle: false
-            gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                alias: GedmoTranslator # this one is optional and will default to the name set for the mapping
-                is_bundle: false
-            gedmo_loggable:
-                type: annotation
-                prefix: Gedmo\Loggable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
-                alias: GedmoLoggable # this one is optional and will default to the name set for the mapping
-                is_bundle: false
+#            gedmo_translatable:
+#                type: annotation
+#                prefix: Gedmo\Translatable\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+#                alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
+#                is_bundle: false
+#            gedmo_translator:
+#                type: annotation
+#                prefix: Gedmo\Translator\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+#                alias: GedmoTranslator # this one is optional and will default to the name set for the mapping
+#                is_bundle: false
+#            gedmo_loggable:
+#                type: annotation
+#                prefix: Gedmo\Loggable\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+#                alias: GedmoLoggable # this one is optional and will default to the name set for the mapping
+#                is_bundle: false
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+                enabled: false
 
 stof_doctrine_extensions:
     default_locale: %locale%
@@ -46,21 +46,21 @@ stof_doctrine_extensions:
             tree: true
             sluggable: true
             timestampable: true
-            softdeleteable: true
-            loggable: true
-            translatable: true
+            softdeleteable: false
+            loggable: false
+            translatable: false
 
 services:
     # KernelRequest listener
-    extension.listener:
-        class: Via\Bundle\CoreBundle\Listener\DoctrineExtensionListener
-        calls:
-            - [ setContainer, [ @service_container ] ]
-        tags:
+#    extension.listener:
+#        class: Via\Bundle\CoreBundle\Listener\DoctrineExtensionListener
+#        calls:
+#            - [ setContainer, [ @service_container ] ]
+#        tags:
             # translatable sets locale after router processing
-            - { name: kernel.event_listener, event: kernel.request, method: onLateKernelRequest, priority: -10 }
+#            - { name: kernel.event_listener, event: kernel.request, method: onLateKernelRequest, priority: -10 }
             # loggable hooks user username if one is in security context
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
 
     # Doctrine Extension listeners to handle behaviors
@@ -71,15 +71,15 @@ services:
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
 
-    gedmo.listener.translatable:
-        class: Gedmo\Translatable\TranslatableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
-            - [ setTranslatableLocale, [ %locale% ] ]
+#    gedmo.listener.translatable:
+#        class: Gedmo\Translatable\TranslatableListener
+#        tags:
+#            - { name: doctrine.event_subscriber, connection: default }
+#        calls:
+#            - [ setAnnotationReader, [ @annotation_reader ] ]
+#            - [ setTranslatableLocale, [ %locale% ] ]
             #- [ setFallbackLocales, [ %locales% ] ] #wip.2.4.0
-            - [ setTranslationFallback, [ true ] ]
+#            - [ setTranslationFallback, [ true ] ]
 
     gedmo.listener.timestampable:
         class: Gedmo\Timestampable\TimestampableListener
@@ -102,12 +102,12 @@ services:
         calls:
             - [ setAnnotationReader, [ @annotation_reader ] ]
 
-    gedmo.listener.loggable:
-        class: Gedmo\Loggable\LoggableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-        calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+#    gedmo.listener.loggable:
+#        class: Gedmo\Loggable\LoggableListener
+#        tags:
+#            - { name: doctrine.event_subscriber, connection: default }
+#        calls:
+#            - [ setAnnotationReader, [ @annotation_reader ] ]
 
 #services:
 #    form.type.translatable:

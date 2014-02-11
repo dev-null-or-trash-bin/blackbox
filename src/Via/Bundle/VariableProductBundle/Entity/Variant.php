@@ -10,9 +10,6 @@ use Via\Bundle\ProductBundle\Entity\Product as BaseProduct;
  * @ORM\Entity
  * @ORM\Table(name="via_variant")
  *
- * @Gedmo\Loggable
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\ProductTranslation")
  */
 class Variant implements VariantInterface
 {
