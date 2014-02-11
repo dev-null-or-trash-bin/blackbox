@@ -18,8 +18,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             
-            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-            
             new FOS\UserBundle\FOSUserBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -35,8 +33,6 @@ class AppKernel extends Kernel
             
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
-            
-            new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             
             new Via\Bundle\ProductBundle\ViaProductBundle(),
             new Via\Bundle\CoreBundle\ViaCoreBundle(),

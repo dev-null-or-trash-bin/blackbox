@@ -31,24 +31,24 @@ doctrine:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: false
 
-stof_doctrine_extensions:
-    default_locale: %locale%
-    uploadable:
-        default_file_path:       %kernel.root_dir%/../web/uploads
+#stof_doctrine_extensions:
+#    default_locale: %locale%
+#    uploadable:
+#        default_file_path:       %kernel.root_dir%/../web/uploads
     
         # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
-        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+#        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
     
         # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
-        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
-    orm:
-        default:
-            tree: true
-            sluggable: true
-            timestampable: true
-            softdeleteable: false
-            loggable: false
-            translatable: false
+#        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
+#    orm:
+#        default:
+#            tree: true
+#            sluggable: true
+#            timestampable: true
+#            softdeleteable: false
+#            loggable: false
+#            translatable: false
 
 services:
     # KernelRequest listener
@@ -116,8 +116,8 @@ services:
 #        tags:
 #        - { name: form.type, alias: translatable_field }
 
-a2lix_translation_form:
-    locales: %locales%     # [1]
-    default_required: true      # [2]
-    manager_registry: doctrine      # [3]
-    templating: "A2lixTranslationFormBundle::default.html.twig"      # [4]
+#a2lix_translation_form:
+#    locales: %locales%     # [1]
+#    default_required: true      # [2]
+#    manager_registry: doctrine      # [3]
+#    templating: "A2lixTranslationFormBundle::default.html.twig"      # [4]
