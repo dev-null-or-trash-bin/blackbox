@@ -113,9 +113,18 @@ class ProductAdmin extends Admin
         }
         
         $admin = $this->isChild() ? $this->getParent() : $this;
-                $product = $admin->getSubject();
+        $product = $admin->getSubject();
         
         $id = $admin->getRequest()->get('id');
+        
+        $root = $menu->getRoot();
+        
+        $menu->addChild('Menu', array(
+            'attributes' => array('class' => ''),
+        	'extras' => array(
+                'safe_label' => true
+            )
+        ));
         
         if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
         
