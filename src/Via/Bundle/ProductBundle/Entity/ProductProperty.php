@@ -31,7 +31,7 @@ class ProductProperty implements ProductPropertyInterface
      *
      * @ORM\ManyToOne(targetEntity="Via\Bundle\ProductBundle\Entity\Product", inversedBy="properties")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     protected $product;
@@ -41,14 +41,14 @@ class ProductProperty implements ProductPropertyInterface
      *
      * @ORM\ManyToOne(targetEntity="Via\Bundle\ProductBundle\Entity\Property", inversedBy="products")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="property_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="property_id", referencedColumnName="id", onDelete="CASCADE")
      * })
      */
     protected $property;
     
     /**
      * Property value.
-     * 
+     *
      * @Gedmo\Translatable
      * @ORM\Column(name="value", type="string", length=255, nullable=false)
      */

@@ -14,64 +14,49 @@ class OptionAdmin extends Admin
     // protected $translationDomain = 'messages'; // default is 'messages'
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
-    {   
-        $formMapper->with('via.tab.label.option',array(
+    {
+        $formMapper->with('via.tab.option',array(
             
         ))
         ->add('name', 'text', array(
-            'label' => 'via.option.form.name',
+            'label' => 'via.form.option.name',
         ))
         
         ->add('presentation', 'text', array(
-            'label' => 'via.option.form.presentation',
+            'label' => 'via.form.option.presentation',
         ))
         
         ->add('values', 'sonata_type_collection', array(
-            #'type'         => 'via_option_value',
-            #'required' => false,
             'by_reference' => false,
-            #'label' => 'via.option.label.values',
-            #'type_options' => array(
-                #'btn_add' => true
-            #)
+            'label' => 'via.form.option.values',
         ), array(
             'edit' => 'inline',
             'inline' => 'table',
-            #'allow_add' => false,
-            #'allow_delete' => true,
-        ))        
+            
+        ))->end()
         ;
-    }
-    
-    // Fields to be shown on filter forms
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        /* $datagridMapper->add('getSku', null, array(
-            'label' => 'via.form.label.product.articleNumber'
-        ))
-        ; */
     }
     
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('id', null, array(
-            'label' => 'via.form.label.product.id'
+            'label' => 'via.form.option.id'
         ))
         ->addIdentifier('name', null, array(
-            'label' => 'via.form.label.product.name'
+            'label' => 'via.form.option.name'
         ))
         
         ->add('values', 'sonata_type_collection', array(
-            'label' => 'via.form.label.product.name'
+            'label' => 'via.form.option.name',
         ))
         
         ->add('createdAt', null, array(
-            'label' => 'via.form.label.product.created_at'
+            'label' => 'via.form.option.created_at'
         ))
         
         ->add('updatedAt', null, array(
-            'label' => 'via.form.label.product.updated_at'
+            'label' => 'via.form.option.updated_at'
         ))
         
         // add custom action links

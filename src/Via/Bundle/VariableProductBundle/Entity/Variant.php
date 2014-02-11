@@ -41,7 +41,7 @@ class Variant implements VariantInterface
      * Is master?
      *
      * @var Boolean
-     * 
+     *
      * @ORM\Column(name="is_master", type="boolean")
      */
     protected $master;
@@ -65,10 +65,10 @@ class Variant implements VariantInterface
      * @ORM\ManyToMany(targetEntity="Via\Bundle\VariableProductBundle\Entity\OptionValue")
      * @ORM\JoinTable(name="via_variant_option_value",
      *   joinColumns={
-     *     @ORM\JoinColumn(name="variant_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="variant_id", referencedColumnName="id", onDelete="CASCADE")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="option_value_id", referencedColumnName="id")
+     *     @ORM\JoinColumn(name="option_value_id", referencedColumnName="id", onDelete="CASCADE")
      *   }
      * )
      */
@@ -78,7 +78,7 @@ class Variant implements VariantInterface
      * Available on.
      *
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(name="available_on", type="datetime")
      */
     protected $availableOn;
@@ -107,7 +107,7 @@ class Variant implements VariantInterface
      * Deletion time.
      *
      * @var \DateTime
-     * 
+     *
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     protected $deletedAt;
