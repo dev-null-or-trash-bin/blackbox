@@ -10,10 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="via_property")
- * @ORM\Entity
- * @Gedmo\Loggable
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\PropertyTranslation")
+ *
  */
 class Property implements PropertyInterface
 {
@@ -34,7 +31,6 @@ class Property implements PropertyInterface
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="presentation", type="string", length=255, nullable=false)
      */
     protected $presentation;
@@ -75,12 +71,6 @@ class Property implements PropertyInterface
     protected $deletedAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\PropertyTranslation", mappedBy="object", cascade={"all"})
-     *
-     */
-    protected $translations;
-    
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="property")
@@ -93,7 +83,6 @@ class Property implements PropertyInterface
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->translations = new ArrayCollection();
     }
     
     public function __toString()
@@ -131,27 +120,6 @@ class Property implements PropertyInterface
     public function setType($type)
     {
         $this->type = $type;
-        return $this;
-    }
-    
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-    
-    public function addTranslation(PropertyTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
-    }
-    
-    public function removeTranslation(PropertyTranslation $translation)
-    {
-        if ($this->translations->contains($translation)) {
-            $this->translations->removeElement($translation);
-        }
         return $this;
     }
     
