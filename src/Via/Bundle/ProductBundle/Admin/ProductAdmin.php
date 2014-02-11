@@ -32,7 +32,20 @@ class ProductAdmin extends Admin
         $formMapper->with('via.tab.general', array(
             'description' => 'This section contains general settings for the web page',
         
-        ))->add('sku', 'text', array(
+        ))
+        ->add('name', 'text', array(
+            'label' => 'via.form.option.name',
+        ))
+        
+        ->add('description', null, array(
+            'label' => 'via.form.option.description',
+        ))
+        
+        ->add('shortDescription', null, array(
+            'label' => 'via.form.option.short_description',
+        ))
+        
+        ->add('sku', 'text', array(
             'label' => 'via.form.product.sku',
             
         ))->add('price', 'money', array(
@@ -40,47 +53,57 @@ class ProductAdmin extends Admin
             'attr' => array(
         	   'class' => 'span5',
             ),
-            'help'  =>  'Set the title of a web page',
+            'help'  =>  'Set the price of the product',
             
-        ))
-//         ->add('translations', 'a2lix_translations_gedmo', array(
-//             'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Product',
-//             'by_reference' => false,
-//             'locales' => array(
-//                 'de',
-//                 'en'
-//             ),
-//         ))->end()
-        ;
+        ))->end();
         // Properties
-//         $formMapper->with('via.tab.properties', array(
+        $formMapper->with('via.tab.properties', array(
             
-//         ))->add('properties', 'sonata_type_collection', array(
-//             'required' => false,
-//             'by_reference' => false,
-//             'label' => 'via.form.product.properties',
-//         ), array(
-//             'edit' => 'inline',
-//             'inline' => 'table',
+        ))->add('properties', 'sonata_type_collection', array(
+            'required' => false,
+            'by_reference' => false,
+            'label' => 'via.form.product.properties',            
+        ), array(
+            'edit' => 'inline',
+            'inline' => 'table',
             
-//         ))->end()
-//         ;
+        ))->end()
+        ;
         
-//         $optionTab = $formMapper->with('via.tab.options', array('description' => 'foo_bar'));
-        
-//         // Options
+        // Options
 //         if ($product->getVariants()->isEmpty()) {
-        
-//             $optionTab->setHelps(array('via.tab.options' => 'bar_foo'));
             
-//             $optionTab->add('options', 'via_option_choice', array(
+//             $formMapper->with('via.tab.options', array(
+//                 'description' => 'foo_bar'
+                
+//             ))->add('options', 'choice', array(
 //                 'label' => false,
 //                 'by_reference' => false,
 //                 'expanded' => true,
 //                 'multiple' => true,
 //             ))->end()
 //             ;
+//         } else {
+//             $formMapper->with('via.tab.options', array(
+//                 'description' => 'no_foo_bar'
+            
+//             ));
 //         }
+    }
+    
+    /**
+     * Kinda Hackish methods to fix potential bug with SonataAdminBundle.
+     * I have not
+     * confirmed this is necessary but I've seen this implemented more than once.
+     */
+    public function prePersist($product)
+    {
+        $product->setProperties($product->getProperties());
+    }
+    
+    public function preUpdate($product)
+    {
+        $product->setProperties($product->getProperties());
     }
     
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
@@ -94,7 +117,7 @@ class ProductAdmin extends Admin
         
         $id = $admin->getRequest()->get('id');
         
-        if ($product->getVariants()->isEmpty()) {
+        if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
         
             $menu->addChild(
                 'Generate Variant',

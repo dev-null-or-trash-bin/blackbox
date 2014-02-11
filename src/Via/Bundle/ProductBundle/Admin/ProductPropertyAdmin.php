@@ -20,13 +20,8 @@ class ProductPropertyAdmin extends Admin
         ), array(
             
         ))
-        ->add('translations', 'a2lix_translations_gedmo', array(
-            'translatable_class' => 'Via\Bundle\ProductBundle\Entity\ProductProperty',
-            'by_reference' => false,
-            'locales' => array(
-                'de',
-                'en'
-            ),
+        ->add('value', 'text', array(
+            'label' => 'via.form.option.value',
         ))
         ;
     }
