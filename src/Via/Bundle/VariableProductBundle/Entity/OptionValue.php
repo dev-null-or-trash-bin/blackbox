@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
  *
  * @ORM\Table(name="via_option_value")
  * @ORM\Entity
+ * 
  */
 class OptionValue implements OptionValueInterface
 {

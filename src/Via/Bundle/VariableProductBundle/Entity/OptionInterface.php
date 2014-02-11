@@ -2,9 +2,8 @@
 namespace Via\Bundle\VariableProductBundle\Entity;
 
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Translatable\Translatable;
 
-interface OptionInterface extends Translatable
+interface OptionInterface
 {
     /**
      * Get internal name.
