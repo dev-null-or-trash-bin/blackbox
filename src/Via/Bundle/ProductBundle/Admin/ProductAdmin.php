@@ -42,44 +42,45 @@ class ProductAdmin extends Admin
             ),
             'help'  =>  'Set the title of a web page',
             
-        ))->add('translations', 'a2lix_translations_gedmo', array(
-            'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Product',
-            'by_reference' => false,
-            'locales' => array(
-                'de',
-                'en'
-            ),
-        ))->end()
+        ))
+//         ->add('translations', 'a2lix_translations_gedmo', array(
+//             'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Product',
+//             'by_reference' => false,
+//             'locales' => array(
+//                 'de',
+//                 'en'
+//             ),
+//         ))->end()
         ;
         // Properties
-        $formMapper->with('via.tab.properties', array(
+//         $formMapper->with('via.tab.properties', array(
             
-        ))->add('properties', 'sonata_type_collection', array(
-            'required' => false,
-            'by_reference' => false,
-            'label' => 'via.form.product.properties',
-        ), array(
-            'edit' => 'inline',
-            'inline' => 'table',
+//         ))->add('properties', 'sonata_type_collection', array(
+//             'required' => false,
+//             'by_reference' => false,
+//             'label' => 'via.form.product.properties',
+//         ), array(
+//             'edit' => 'inline',
+//             'inline' => 'table',
             
-        ))->end()
-        ;
+//         ))->end()
+//         ;
         
-        $optionTab = $formMapper->with('via.tab.options', array('description' => 'foo_bar'));
+//         $optionTab = $formMapper->with('via.tab.options', array('description' => 'foo_bar'));
         
-        // Options
-        if ($product->getVariants()->isEmpty()) {
+//         // Options
+//         if ($product->getVariants()->isEmpty()) {
         
-            $optionTab->setHelps(array('via.tab.options' => 'bar_foo'));
+//             $optionTab->setHelps(array('via.tab.options' => 'bar_foo'));
             
-            $optionTab->add('options', 'via_option_choice', array(
-                'label' => false,
-                'by_reference' => false,
-                'expanded' => true,
-                'multiple' => true,
-            ))->end()
-            ;
-        }
+//             $optionTab->add('options', 'via_option_choice', array(
+//                 'label' => false,
+//                 'by_reference' => false,
+//                 'expanded' => true,
+//                 'multiple' => true,
+//             ))->end()
+//             ;
+//         }
     }
     
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)

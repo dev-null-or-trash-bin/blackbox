@@ -8,13 +8,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Via\Bundle\VariableProductBundle\Entity\Variant;
 use Via\Bundle\VariableProductBundle\Entity\VariantInterface;
 use Via\Bundle\VariableProductBundle\Entity\OptionInterface;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="via_product")
- *
- * @Gedmo\Loggable
- * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @Gedmo\TranslationEntity(class="Via\Bundle\ProductBundle\Entity\ProductTranslation")
+ * 
  */
 class Product implements ProductInterface
 {
@@ -37,13 +35,11 @@ class Product implements ProductInterface
     protected $id;
     
     /**
-     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=80)
      */
     protected $name;
     
     /**
-     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text")
      */
     protected $description;
@@ -51,7 +47,6 @@ class Product implements ProductInterface
     /**
      * short description
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="short_description", type="string", length=255, nullable=true)
      */
     protected $shortDescription;
@@ -86,12 +81,6 @@ class Product implements ProductInterface
     protected $deletedAt;
     
     /**
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductTranslation", mappedBy="object", cascade={"persist", "remove"})
-     *
-     */
-    protected $translations;
-    
-    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
@@ -123,7 +112,6 @@ class Product implements ProductInterface
     
     public function __construct()
     {
-        $this->translations = new ArrayCollection();
         $this->properties = new ArrayCollection();
         $this->variants = new ArrayCollection();
         $this->options = new ArrayCollection();
@@ -131,27 +119,6 @@ class Product implements ProductInterface
         $this->setMasterVariant(new Variant());
                 
         $this->variantSelectionMethod = self::VARIANT_SELECTION_CHOICE;
-    }
-    
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-    
-    public function addTranslation(ProductTranslation $t)
-    {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
-    }
-    
-    public function removeTranslation(ProductTranslation $translation)
-    {
-        if ($this->translations->contains($translation)) {
-            $this->translations->removeElement($translation);
-        }
-        return $this;
     }
     
     public function __toString()

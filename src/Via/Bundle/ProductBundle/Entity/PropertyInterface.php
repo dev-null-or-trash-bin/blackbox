@@ -1,9 +1,7 @@
 <?php
 namespace Via\Bundle\ProductBundle\Entity;
 
-use Gedmo\Translatable\Translatable;
-
-interface PropertyInterface extends Translatable
+interface PropertyInterface
 {
     /**
      * Get internal name.
