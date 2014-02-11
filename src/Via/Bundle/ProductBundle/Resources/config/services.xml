@@ -9,14 +9,11 @@
         <parameter key="via.entity.product.class">Via\Bundle\ProductBundle\Entity\Product</parameter>
         <parameter key="via.entity.property.class">Via\Bundle\ProductBundle\Entity\Property</parameter>
         <parameter key="via.entity.product_property.class">Via\Bundle\ProductBundle\Entity\ProductProperty</parameter>
+        
         <parameter key="via.repository.product.class">Via\Bundle\ProductBundle\Repository\ProductRepository</parameter>
-        
         <parameter key="via.repository.property.class">Via\Bundle\ProductBundle\Repository\PropertyRepository</parameter>
-        <parameter key="via.repository.property_translation.class">Via\Bundle\ProductBundle\Repository\PropertyTranslationRepository</parameter>
-        
         <parameter key="via.repository.product_property.class">Via\Bundle\ProductBundle\Repository\ProductPropertyRepository</parameter>
-        <parameter key="via.repository.product_property_translation.class">Via\Bundle\ProductBundle\Repository\ProductPropertyTranslationRepository</parameter>
-        
+                
         <parameter key="via.sonata.admin.product.class">Via\Bundle\ProductBundle\Admin\ProductAdmin</parameter>
         <parameter key="via.sonata.admin.property.class">Via\Bundle\ProductBundle\Admin\PropertyAdmin</parameter>
         <parameter key="via.sonata.admin.product_property.class">Via\Bundle\ProductBundle\Admin\ProductPropertyAdmin</parameter>
