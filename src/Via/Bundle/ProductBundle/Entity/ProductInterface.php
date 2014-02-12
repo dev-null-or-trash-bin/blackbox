@@ -1,9 +1,7 @@
 <?php
 namespace Via\Bundle\ProductBundle\Entity;
 
-use Gedmo\Translatable\Translatable;
-
-interface ProductInterface extends Translatable
+interface ProductInterface
 {
     public function getId();
     

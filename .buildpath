@@ -15,16 +15,15 @@
 	<buildpathentry kind="src" path="vendor/sonata-project/doctrine-extensions/src"/>
 	<buildpathentry kind="src" path="vendor/symfony/monolog-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/icu"/>
-	<buildpathentry kind="src" path="vendor/sensio/framework-extra-bundle"/>
 	<buildpathentry kind="src" path="src"/>
 	<buildpathentry kind="src" path="vendor/knplabs/knp-menu/src"/>
+	<buildpathentry kind="src" path="vendor/sensio/framework-extra-bundle"/>
 	<buildpathentry kind="src" path="vendor/sonata-project/admin-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/orm/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/doctrine-bundle"/>
 	<buildpathentry kind="src" path="vendor/twig/extensions/lib"/>
 	<buildpathentry kind="src" path="vendor/elao/web-profiler-extra-bundle"/>
 	<buildpathentry kind="src" path="vendor/sensio/distribution-bundle"/>
-	<buildpathentry kind="src" path="vendor/stof/doctrine-extensions-bundle"/>
 	<buildpathentry kind="src" path="vendor/symfony/swiftmailer-bundle"/>
 	<buildpathentry kind="src" path="vendor/sonata-project/google-authenticator/lib"/>
 	<buildpathentry kind="src" path="vendor/sonata-project/exporter/lib"/>
@@ -32,7 +31,6 @@
 	<buildpathentry kind="src" path="vendor/sonata-project/core-bundle"/>
 	<buildpathentry kind="src" path="vendor/doctrine/collections/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/dbal/lib"/>
-	<buildpathentry kind="src" path="vendor/a2lix/translation-form-bundle"/>
 	<buildpathentry kind="src" path="vendor/psr/log"/>
 	<buildpathentry kind="src" path="vendor/doctrine/inflector/lib"/>
 	<buildpathentry kind="src" path="vendor/doctrine/cache/lib"/>
