@@ -14,7 +14,17 @@ use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class ProductAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-product';
+    #protected $baseRoutePattern = 'via-product';
+    /**
+     * {@inheritdoc}
+     */
+    public function configure()
+    {
+        $this->baseRouteName = 'admin_sonata_product_product';
+        $this->baseRoutePattern = '/sonata/product/product';
+    }
+    
+    
     
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -127,6 +137,13 @@ class ProductAdmin extends Admin
             )
         ));
         
+        $menu->addChild(
+            'Product',
+            array(
+                'uri' => $admin->generateUrl('edit', array('id' => $id))
+            )
+        );
+        
         if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
 
         
@@ -137,6 +154,13 @@ class ProductAdmin extends Admin
                 )
             );
         }
+        
+        $menu->addChild(
+            'Variants',
+            array(
+                'uri' => $admin->generateUrl('via.sonata.admin.variant.list', array('id' => $id))
+            )
+        );
     }
 
     // Fields to be shown on lists

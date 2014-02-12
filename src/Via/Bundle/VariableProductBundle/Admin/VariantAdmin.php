@@ -6,60 +6,32 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class VariantAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-variant';
+    #protected $baseRoutePattern = 'via-variant';
     
-    // protected $translationDomain = 'messages'; // default is 'messages'
-    // Fields to be shown on create/edit forms
+    /**
+     * {@inheritdoc}
+     */
+    public function configure()
+    {
+        #$this->baseRouteName = 'sonata_admin_product_variations';
+        #$this->baseRoutePattern = 'variant';
+    }
+    
     protected function configureFormFields(FormMapper $formMapper)
-    {   
-        $formMapper->with('via.tab.label.product',array(
-            
-        ))
-        ->add('translations', 'a2lix_translations_gedmo', array(
-            'translatable_class' => 'Via\Bundle\ProductBundle\Entity\Product',
-            'by_reference' => false,
-            'locales' => array(
-                'de',
-                'en'
-            ),
-//             'label' => 'via.form.label.product.translations',
-//             'fields' => array(
-//                 'name' => array(
-//                     'field_type' => 'text',
-//                     'label' => 'via.form.label.product.name',
-//                     'required' => true
-//                 ),
-//                 'shortDescription' => array(
-//                     'field_type' => 'text',
-//                     'label' => 'via.form.label.product.short_description'
-//                 ),
-//                 'description' => array(
-//                     'field_type' => 'textarea',
-//                     'label' => 'via.form.label.product.description'
-//                 )
-//             )
-        ))
-        ;
-        
-        $formMapper->with('via.tab.label.properties', array(
-        ))
-        ->add('properties', 'sonata_type_collection', array(
-            'required' => false,
-            'by_reference' => false,
-            'label' => 'via.tab.label.properties',
-            'type_options' => array(
-                #'btn_add' => true
-            )
-        ), array(
-            'edit' => 'inline',
-            'inline' => 'table',
-            #'allow_add' => false,
-            #'allow_delete' => true,
-        ))        
-        ;
+    {
+
+    }
+    
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        // to remove a single route
+        $collection->remove('delete');
+        // OR remove all route except named ones
+        $collection->clearExcept(array('list', 'show'));
     }
 
     /**
@@ -90,16 +62,22 @@ class VariantAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('id', null, array(
-            'label' => 'via.form.label.product.id'
+            'label' => 'via.form.variant.id'
+        ))
+        ->add('presentation', null, array(
+            'label' => 'via.form.variant.presentation'
         ))
         
+        ->add('sku', null, array(
+            'label' => 'via.form.variant.sku'
+        ))
         
-        // add custom action links
-        ->add('_action', 'actions', array(
-            'actions' => array(
-                'show' => array(),
-                'edit' => array(),
-            ),
+        ->add('price', 'currency', array(
+            'label' => 'via.form.variant.price'
+        ))
+        
+        ->add('options', 'sonata_type_collection', array(
+            'label' => 'via.form.variant.options'
         ))
         ;
     }

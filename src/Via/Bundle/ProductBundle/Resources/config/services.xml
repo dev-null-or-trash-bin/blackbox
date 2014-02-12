@@ -31,6 +31,9 @@
 		<call method="setTranslationDomain">
 			<argument>messages</argument>
 		</call>
+		<call method="addChild">
+                <argument type="service" id="via.sonata.admin.variant" />
+            </call>
 	</service>
 
 	<service id="via.sonata.admin.property" class="%via.sonata.admin.property.class%">

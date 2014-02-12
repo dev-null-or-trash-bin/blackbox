@@ -20,7 +20,7 @@
         <parameter key="via.form.type.option_value_collection.class">Via\Bundle\VariableProductBundle\Form\Type\OptionValueCollectionType</parameter>
         
         <parameter key="via.entity.variant.class">Via\Bundle\VariableProductBundle\Entity\Variant</parameter>
-        
+        <parameter key="via.sonata.admin.variant.class">Via\Bundle\VariableProductBundle\Admin\VariantAdmin</parameter>
         <parameter key="via.generator.variant.class">Via\Bundle\VariableProductBundle\Generator\VariantGenerator</parameter>
         <parameter key="via.repository.variant.class">Via\Bundle\VariableProductBundle\Repository\VariantRepository</parameter>
         
@@ -56,6 +56,21 @@
                 </service>
             </argument>
         </service>
+        
+        <service id="via.sonata.admin.variant" class="%via.sonata.admin.variant.class%">
+          <tag name="sonata.admin" manager_type="orm" 
+                group="Content" 
+                label="via.admin.dashboard.variant"
+           		label_translator_strategy="sonata.admin.label.strategy.noop"
+           		show_in_dashboard="true"     
+           />          
+          <argument />
+          <argument>%via.entity.variant.class%</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>messages</argument>
+          </call>
+      </service>
     
         <service id="via.sonata.admin.option" class="%via.sonata.admin.option.class%">
           <tag name="sonata.admin" manager_type="orm" 
