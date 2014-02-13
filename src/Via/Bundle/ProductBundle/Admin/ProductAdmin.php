@@ -60,11 +60,14 @@ class ProductAdmin extends Admin
             
         ))->add('price', 'money', array(
             'label' => 'via.form.product.price',
+        
+            'currency' => 'EUR',
+            
             'attr' => array(
         	   'class' => 'span5',
             ),
             'help'  =>  'Set the title of a web page',
-           
+            
         ))->end();
 
         // Properties

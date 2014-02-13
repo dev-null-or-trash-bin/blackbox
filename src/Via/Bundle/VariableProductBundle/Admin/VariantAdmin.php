@@ -73,7 +73,9 @@ class VariantAdmin extends Admin
         ))
         
         ->add('price', 'currency', array(
-            'label' => 'via.form.variant.price'
+            'label' => 'via.form.variant.price',
+            'currency' => 'EUR',
+            'locale' => 'de',
         ))
         
         ->add('options', 'sonata_type_collection', array(
