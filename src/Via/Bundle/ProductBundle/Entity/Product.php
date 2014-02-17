@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Via\Bundle\VariableProductBundle\Entity\Variant;
 use Via\Bundle\VariableProductBundle\Entity\Option;
+use Via\Bundle\CarpartBundle\Entity\CarpartList;
 
 /**
  * @ORM\Entity
@@ -107,6 +108,13 @@ class Product implements ProductInterface
      * @ORM\OneToMany(targetEntity="Via\Bundle\VariableProductBundle\Entity\Variant", mappedBy="product", cascade={"all"}, orphanRemoval=true)
      */
     protected $variants;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected $carparts;
     
     
     public function __construct()
@@ -561,5 +569,59 @@ class Product implements ProductInterface
         $labels = self::getVariantSelectionMethodLabels();
     
         return $labels[$this->variantSelectionMethod];
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function getCarparts()
+    {
+        return $this->carparts;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function setCarparts(Collection $carparts)
+    {
+        foreach ($carparts as $carpart) {
+            $this->addCarpart($carpart);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function addCarpart(CarpartList $carpart)
+    {
+        if (!$this->hasCarpart($carpart)) {
+            $carpart->setProduct($this);
+            $this->carparts->add($carpart);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function removeCarpart(CarpartList $carpart)
+    {
+        if ($this->hasCarpart($carpart)) {
+            $carpart->setProduct(null);
+            $this->carparts->removeElement($carpart);
+        }
+    
+        return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCarpart(CarpartList $carpart)
+    {
+        return $this->carpart->contains($carpart);
     }
 }

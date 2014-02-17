@@ -10,16 +10,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
 
 class VariantAdmin extends Admin
 {
-    #protected $baseRoutePattern = 'via-variant';
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function configure()
-    {
-        #$this->baseRouteName = 'sonata_admin_product_variations';
-        #$this->baseRoutePattern = 'variant';
-    }
     
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -31,31 +21,7 @@ class VariantAdmin extends Admin
         // to remove a single route
         $collection->remove('delete');
         // OR remove all route except named ones
-        $collection->clearExcept(array('list', 'show'));
-    }
-
-    /**
-     * Kinda Hackish methods to fix potential bug with SonataAdminBundle.
-     * I have not
-     * confirmed this is necessary but I've seen this implemented more than once.
-     */
-    public function prePersist($product)
-    {
-        #$product->setProperties($product->getProperties());
-    }
-
-    public function preUpdate($product)
-    {
-        #$product->setProperties($product->getProperties());
-    }
-    
-    // Fields to be shown on filter forms
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        /* $datagridMapper->add('getSku', null, array(
-            'label' => 'via.form.label.product.articleNumber'
-        ))
-        ; */
+        $collection->clearExcept(array('list', 'show', 'edit'));
     }
     
     // Fields to be shown on lists
@@ -64,6 +30,11 @@ class VariantAdmin extends Admin
         $listMapper->addIdentifier('id', null, array(
             'label' => 'via.form.variant.id'
         ))
+
+        ->addIdentifier('product.name', null, array(
+            'label' => 'via.form.variant.product_name'
+        ))
+        
         ->add('presentation', null, array(
             'label' => 'via.form.variant.presentation'
         ))

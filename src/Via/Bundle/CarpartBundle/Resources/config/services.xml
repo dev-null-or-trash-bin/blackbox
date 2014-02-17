@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    
+    <parameters>
+        <parameter key="via.entity.carpart_list.class">Via\Bundle\CarpartBundle\Entity\CarpartList</parameter>
+        <parameter key="via.sonata.admin.carpart_list.class">Via\Bundle\CarpartBundle\Admin\CarpartListAdmin</parameter>
+    </parameters>
+
+    <services>
+        <service id="via.sonata.admin.carpart_list" class="%via.sonata.admin.carpart_list.class%">
+          <tag name="sonata.admin" manager_type="orm" 
+                group="Content" 
+                label="via.admin.dashboard.carpart_list"
+           		label_translator_strategy="sonata.admin.label.strategy.noop"
+           		show_in_dashboard="true"     
+           />          
+          <argument />
+          <argument>%via.entity.carpart_list.class%</argument>
+          <argument />
+          <call method="setTranslationDomain">
+              <argument>messages</argument>
+          </call>
+      </service>
+    </services>
+    
+</container>

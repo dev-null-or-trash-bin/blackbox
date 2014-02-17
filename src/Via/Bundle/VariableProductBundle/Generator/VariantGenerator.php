@@ -52,6 +52,10 @@ class VariantGenerator implements VariantGeneratorInterface
                 $optionMap[$value->getId()] = $value;
             }
         }
+        
+        Debug::dump($optionSet, 6);
+        Debug::dump($optionMap, 3);
+        die();
 
         $permutations = $this->getPermutations($optionSet);
 

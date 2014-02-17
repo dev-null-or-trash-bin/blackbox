@@ -86,24 +86,23 @@ class ProductAdmin extends Admin
         ;
         
         // Options
-//         if ($product->getVariants()->isEmpty()) {
+        if ($product->getVariants()->isEmpty()) {
             
-//             $formMapper->with('via.tab.options', array(
-//                 'description' => 'foo_bar'
+            $formMapper->with('via.tab.options', array(
+                'description' => 'foo_bar'
                 
-//             ))->add('options', 'choice', array(
-//                 'label' => false,
-//                 'by_reference' => false,
-//                 'expanded' => true,
-//                 'multiple' => true,
-//             ))->end()
-//             ;
-//         } else {
-//             $formMapper->with('via.tab.options', array(
-//                 'description' => 'no_foo_bar'
-            
-//             ));
-//         }
+            ))->add('options', 'sonata_type_model', array(
+                'label' => false,
+                'by_reference' => false,
+                'expanded' => true,
+                'multiple' => true,
+            ))->end()
+            ;
+        } else {
+            $formMapper->with('via.tab.options', array(
+                'description' => 'no_foo_bar'
+            ));
+        }
     }
     
     /**
@@ -146,9 +145,8 @@ class ProductAdmin extends Admin
                 'uri' => $admin->generateUrl('edit', array('id' => $id))
             )
         );
-        
+        //
         if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
-
         
             $menu->addChild(
                 'Generate Variant',
@@ -157,7 +155,7 @@ class ProductAdmin extends Admin
                 )
             );
         }
-        
+       
         $menu->addChild(
             'Variants',
             array(
