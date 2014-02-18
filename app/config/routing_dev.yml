@@ -13,6 +13,6 @@ _configurator:
 _main:
     resource: routing.yml
 
-via_backend_variant:
-    resource: @ViaDemoBundle/Resources/config/routing.yml
-    prefix: /admin
+via_demo:
+    resource: '@ViaDemoBundle/Resources/config/routing.yml'
+    prefix: /demo

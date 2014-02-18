@@ -6,8 +6,8 @@ parameters:
 doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
-        mappings:
+        auto_mapping: false
+#        mappings:
 #            gedmo_translatable:
 #                type: annotation
 #                prefix: Gedmo\Translatable\Entity
@@ -35,10 +35,10 @@ doctrine:
 #    default_locale: %locale%
 #    uploadable:
 #        default_file_path:       %kernel.root_dir%/../web/uploads
-    
+
         # Mime type guesser class: Optional. By default, we provide an adapter for the one present in the HttpFoundation component of Symfony
 #        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
-    
+
         # Default file info class implementing FileInfoInterface: Optional. By default we provide a class which is prepared to receive an UploadedFile instance.
 #        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
 #    orm:
@@ -69,7 +69,7 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
 #    gedmo.listener.translatable:
 #        class: Gedmo\Translatable\TranslatableListener
@@ -86,21 +86,21 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
     gedmo.listener.sortable:
         class: Gedmo\Sortable\SortableListener
         tags:
             - { name: doctrine.event_subscriber, connection: default }
         calls:
-            - [ setAnnotationReader, [ @annotation_reader ] ]
+            - [ setAnnotationReader, [ '@annotation_reader' ] ]
 
 #    gedmo.listener.loggable:
 #        class: Gedmo\Loggable\LoggableListener

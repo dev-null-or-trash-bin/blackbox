@@ -37,8 +37,11 @@ assetic:
 
 doctrine:
     dbal:
-        dbname: %database_name%_dev
-        
+        connections:
+              default:
+                  dbname: '%database_name%_dev'
+
+
 web_profiler_extra:
     routing:
         enabled:        true
