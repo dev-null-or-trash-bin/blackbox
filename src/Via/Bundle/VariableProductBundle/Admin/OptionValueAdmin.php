@@ -6,12 +6,21 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class OptionValueAdmin extends Admin
 {
     protected $baseRoutePattern = 'via-option-value';
     
-    // protected $translationDomain = 'messages'; // default is 'messages'
+    // disable edit in variation list
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        // to remove a single route
+        $collection->remove('delete');
+        // OR remove all route except named ones
+        $collection->clearExcept(array('list', 'show'));
+    }
+    
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -22,31 +31,6 @@ class OptionValueAdmin extends Admin
             'label' => 'via.option_value.form.value',
         ))
         ;
-           
-    }
-
-    /**
-     * Kinda Hackish methods to fix potential bug with SonataAdminBundle.
-     * I have not
-     * confirmed this is necessary but I've seen this implemented more than once.
-     */
-    public function prePersist($product)
-    {
-        #$product->setProperties($product->getProperties());
-    }
-
-    public function preUpdate($product)
-    {
-        #$product->setProperties($product->getProperties());
-    }
-    
-    // Fields to be shown on filter forms
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    {
-        /* $datagridMapper->add('getSku', null, array(
-            'label' => 'via.form.label.product.articleNumber'
-        ))
-        ; */
     }
     
     // Fields to be shown on lists
