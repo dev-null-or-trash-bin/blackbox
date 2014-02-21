@@ -112,7 +112,7 @@ class Product implements ProductInterface
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\OneToMany(targetEntity="Via\Bundle\ProductBundle\Entity\ProductProperty", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Via\Bundle\CarpartBundle\Entity\ProductCarpart", mappedBy="product", cascade={"persist"}, orphanRemoval=true)
      */
     protected $carparts;
     
@@ -623,5 +623,13 @@ class Product implements ProductInterface
     public function hasCarpart(CarpartList $carpart)
     {
         return $this->carpart->contains($carpart);
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function hasCarparts()
+    {
+        return !$this->getCarparts()->isEmpty();
     }
 }

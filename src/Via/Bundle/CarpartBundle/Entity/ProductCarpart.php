@@ -24,7 +24,7 @@ class ProductCarpart
     /**
      * @var \ViaCarpartList
      *
-     * @ORM\ManyToOne(targetEntity="ViaCarpartList")
+     * @ORM\ManyToOne(targetEntity="Via\Bundle\CarpartBundle\Entity\CarpartList")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="carpart_list_id", referencedColumnName="ktype")
      * })
@@ -34,7 +34,7 @@ class ProductCarpart
     /**
      * @var \ViaProduct
      *
-     * @ORM\ManyToOne(targetEntity="ViaProduct")
+     * @ORM\ManyToOne(targetEntity="Via\Bundle\ProductBundle\Entity\Product")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })

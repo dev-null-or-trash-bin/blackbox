@@ -44,15 +44,16 @@ class ProductAdmin extends Admin
         
         ))
         ->add('name', 'text', array(
-            'label' => 'via.form.option.name',
+            'label' => 'via.form.product.name',
+            'required' => true,
         ))
         
         ->add('description', null, array(
-            'label' => 'via.form.option.description',
+            'label' => 'via.form.product.description',
         ))
         
         ->add('shortDescription', null, array(
-            'label' => 'via.form.option.short_description',
+            'label' => 'via.form.product.short_description',
         ))
         
         ->add('sku', 'text', array(
@@ -122,7 +123,7 @@ class ProductAdmin extends Admin
     
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && !in_array($action, array('edit'))) {
+        if (!$childAdmin && in_array($action, array('list'))) {
             return;
         }
         
@@ -133,35 +134,38 @@ class ProductAdmin extends Admin
         $root = $menu->getRoot();
         
         $menu->addChild('Menu', array(
-            'attributes' => array('class' => ''),
+            'attributes' => array('class' => 'nav-header'),
         	'extras' => array(
                 'safe_label' => true
             )
         ));
         
-        $menu->addChild(
-            'Product',
-            array(
-                'uri' => $admin->generateUrl('edit', array('id' => $id))
-            )
-        );
-        //
-        if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
+        if (!in_array($action, array('create'))) {
         
             $menu->addChild(
-                'Generate Variant',
+                'Product',
                 array(
-                    'uri' => $admin->generateUrl('generate', array('id' => $id))
+                    'uri' => $admin->generateUrl('edit', array('id' => $id))
+                )
+            );
+            //
+            if ($product->getVariants()->isEmpty() && $product->hasOptions()) {
+            
+                $menu->addChild(
+                    'Generate Variants',
+                    array(
+                        'uri' => $admin->generateUrl('generate', array('id' => $id)),
+                    )
+                );
+            }
+           
+            $menu->addChild(
+                'Variants',
+                array(
+                    'uri' => $admin->generateUrl('via.sonata.admin.variant.list', array('id' => $id))
                 )
             );
         }
-       
-        $menu->addChild(
-            'Variants',
-            array(
-                'uri' => $admin->generateUrl('via.sonata.admin.variant.list', array('id' => $id))
-            )
-        );
     }
 
     // Fields to be shown on lists
@@ -173,6 +177,15 @@ class ProductAdmin extends Admin
         ))->addIdentifier('name', null, array(
             'label' => 'via.form.product.name'
         ))
+        
+        ->add('hasVariants', 'boolean', array(
+            'label' => 'via.form.product.hasVariations'
+        ))
+        
+        ->add('hasCarparts', 'boolean', array(
+            'label' => 'via.form.product.hasCarparts'
+        ))
+        
         // add custom action links
         ->add('_action', 'actions', array(
             'actions' => array(
