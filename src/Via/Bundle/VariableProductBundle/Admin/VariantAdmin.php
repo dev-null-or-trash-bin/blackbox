@@ -13,7 +13,16 @@ class VariantAdmin extends Admin
     
     protected function configureFormFields(FormMapper $formMapper)
     {
-
+        $formMapper->add('sku', null, array(
+        	
+        ))
+        ->add('price', 'money', array(
+        	
+        ))
+        ->add('availableOn', null, array(
+             
+        ))
+        ;
     }
     
     public function createQuery($context = 'list')
