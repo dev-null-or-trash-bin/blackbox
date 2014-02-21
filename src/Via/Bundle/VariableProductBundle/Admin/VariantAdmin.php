@@ -16,6 +16,31 @@ class VariantAdmin extends Admin
 
     }
     
+    public function createQuery($context = 'list')
+    {
+        $admin = $this->isChild() ? $this->getParent() : $this;
+        $id = $admin->getRequest()->get('id');
+        
+        $query = parent::createQuery($context);
+                
+        if ($this->isChild())
+        {
+            $query->andWhere(
+                $query->expr()->eq($query->getRootAlias().'.product',':product')
+            );
+            
+            $query->setParameter('product', $id);
+        }
+        
+        $query->andWhere(
+            $query->expr()->eq($query->getRootAlias().'.master',':isMaster')
+        );
+        
+        $query->setParameter('isMaster', false);
+        
+        return $query;
+    }
+    
     protected function configureRoutes(RouteCollection $collection)
     {
         // to remove a single route
