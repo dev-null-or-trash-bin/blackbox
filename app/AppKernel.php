@@ -34,6 +34,11 @@ class AppKernel extends Kernel
             // Then add SonataAdminBundle
             new Sonata\AdminBundle\SonataAdminBundle(),
             
+            new Sonata\MarkItUpBundle\SonataMarkItUpBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new Sonata\FormatterBundle\SonataFormatterBundle(),
+            
             new Via\Bundle\ProductBundle\ViaProductBundle(),
             new Via\Bundle\CoreBundle\ViaCoreBundle(),
             new Via\Bundle\VariableProductBundle\ViaVariableProductBundle(),

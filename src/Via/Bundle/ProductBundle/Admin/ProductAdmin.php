@@ -14,7 +14,6 @@ use Knp\Menu\ItemInterface as MenuItemInterface;
 
 class ProductAdmin extends Admin
 {
-    #protected $baseRoutePattern = 'via-product';
     /**
      * {@inheritdoc}
      */
@@ -23,8 +22,6 @@ class ProductAdmin extends Admin
         $this->baseRouteName = 'admin_sonata_product_product';
         $this->baseRoutePattern = '/sonata/product/product';
     }
-    
-    
     
     protected function configureRoutes(RouteCollection $collection)
     {
@@ -48,8 +45,13 @@ class ProductAdmin extends Admin
             'required' => true,
         ))
         
-        ->add('description', null, array(
-            'label' => 'via.form.product.description',
+        ->add('description', 'sonata_formatter_type', array(
+            'label'                => false,
+            'source_field'         => 'rawDescription',
+            'source_field_options' => array('attr' => array('class' => 'span10', 'rows' => 20)),
+            'format_field'         => 'descriptionFormatter',
+            'target_field'         => 'description',
+            'event_dispatcher'     => $formMapper->getFormBuilder()->getEventDispatcher()
         ))
         
         ->add('shortDescription', null, array(
@@ -90,7 +92,7 @@ class ProductAdmin extends Admin
         if ($product->getVariants()->isEmpty()) {
             
             $formMapper->with('via.tab.options', array(
-                'description' => 'foo_bar'
+                'description' => 'via.form.product.help.options'
                 
             ))->add('options', 'sonata_type_model', array(
                 'label' => false,
@@ -99,11 +101,22 @@ class ProductAdmin extends Admin
                 'multiple' => true,
             ))->end()
             ;
-        } else {
-            $formMapper->with('via.tab.options', array(
-                'description' => 'no_foo_bar'
-            ));
         }
+        
+        // carparts
+//         $formMapper->with('via.tab.carparts', array(
+        
+//         ))->add('carparts', 'sonata_type_collection', array(
+//             'required' => false,
+//             'by_reference' => false,
+//             'label' => 'via.form.product.properties',
+        
+//         ), array(
+//             'edit' => 'inline',
+//             'inline' => 'table',
+        
+//         ))->end()
+//         ;
     }
     
     /**

@@ -40,9 +40,19 @@ class Product implements ProductInterface
     protected $name;
     
     /**
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
+    
+    /**
+     * @ORM\Column(name="raw_description", type="text", nullable=true)
+     */
+    protected $rawDescription;
+    
+    /**
+     * @ORM\Column(name="description_formatter", type="string", nullable=true)
+     */
+    protected $descriptionFormatter;
     
     /**
      * short description
@@ -50,6 +60,16 @@ class Product implements ProductInterface
      * @ORM\Column(name="short_description", type="string", length=255, nullable=true)
      */
     protected $shortDescription;
+    
+    /**
+     * @ORM\Column(name="raw_short_description", type="text", nullable=true)
+     */
+    protected $rawShortDescription;
+    
+    /**
+     * @ORM\Column(name="short_description_formatter", type="string", nullable=true)
+     */
+    protected $shortDescriptionFormatter;
     
     /**
      * Creation time.
@@ -632,4 +652,49 @@ class Product implements ProductInterface
     {
         return !$this->getCarparts()->isEmpty();
     }
+
+    public function getRawDescription()
+    {
+        return $this->rawDescription;
+    }
+
+    public function setRawDescription($rawDescription)
+    {
+        $this->rawDescription = $rawDescription;
+        return $this;
+    }
+
+    public function getDescriptionFormatter()
+    {
+        return $this->descriptionFormatter;
+    }
+
+    public function setDescriptionFormatter($descriptionFormatter)
+    {
+        $this->descriptionFormatter = $descriptionFormatter;
+        return $this;
+    }
+
+    public function getRawShortDescription()
+    {
+        return $this->rawShortDescription;
+    }
+
+    public function setRawShortDescription($rawShortDescription)
+    {
+        $this->rawShortDescription = $rawShortDescription;
+        return $this;
+    }
+
+    public function getShortDescriptionFormatter()
+    {
+        return $this->shortDescriptionFormatter;
+    }
+
+    public function setShortDescriptionFormatter($shortDescriptionFormatter)
+    {
+        $this->shortDescriptionFormatter = $shortDescriptionFormatter;
+        return $this;
+    }
+	
 }
