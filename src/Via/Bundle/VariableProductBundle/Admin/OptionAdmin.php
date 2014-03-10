@@ -9,7 +9,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 
 class OptionAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-option';
+    protected $formOptions = array(
+        'cascade_validation' => true
+    );
     
     // protected $translationDomain = 'messages'; // default is 'messages'
     // Fields to be shown on create/edit forms
@@ -20,6 +22,7 @@ class OptionAdmin extends Admin
         ))
         ->add('name', 'text', array(
             'label' => 'via.form.option.name',
+            'required' => true
         ))
         
         ->add('presentation', 'text', array(
@@ -28,6 +31,7 @@ class OptionAdmin extends Admin
         
         ->add('values', 'sonata_type_collection', array(
             'by_reference' => false,
+            'required' => true,
             'label' => 'via.form.option.values',
         ), array(
             'edit' => 'inline',

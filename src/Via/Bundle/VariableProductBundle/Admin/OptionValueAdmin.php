@@ -18,7 +18,7 @@ class OptionValueAdmin extends Admin
         // to remove a single route
         $collection->remove('delete');
         // OR remove all route except named ones
-        $collection->clearExcept(array('list', 'show'));
+        #$collection->clearExcept(array('list', 'show'));
     }
     
     // Fields to be shown on create/edit forms

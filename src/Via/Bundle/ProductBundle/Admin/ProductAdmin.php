@@ -11,9 +11,14 @@ use Doctrine\Common\Util\Debug;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Validator\ErrorElement;
 
 class ProductAdmin extends Admin
 {
+    protected $formOptions = array(
+        'cascade_validation' => true
+    );
+    
     /**
      * {@inheritdoc}
      */
@@ -63,13 +68,11 @@ class ProductAdmin extends Admin
             
         ))->add('price', 'money', array(
             'label' => 'via.form.product.price',
-        
             'currency' => 'EUR',
-            
             'attr' => array(
         	   'class' => 'span5',
             ),
-            'help'  =>  'Set the title of a web page',
+            'help'  =>  'via.help.',
             
         ))->end();
 
@@ -77,9 +80,10 @@ class ProductAdmin extends Admin
         $formMapper->with('via.tab.properties', array(
             
         ))->add('properties', 'sonata_type_collection', array(
-            'required' => false,
+            'required' => true,
             'by_reference' => false,
             'label' => 'via.form.product.properties',
+            'cascade_validation' => true,
 
         ), array(
             'edit' => 'inline',
@@ -118,6 +122,7 @@ class ProductAdmin extends Admin
 //         ))->end()
 //         ;
     }
+
     
     /**
      * Kinda Hackish methods to fix potential bug with SonataAdminBundle.

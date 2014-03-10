@@ -4,33 +4,36 @@
                     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
                                         http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
 
-    <class name="Via\Bundle\VariableProductBundle\Entity\Variant">
-        <constraint name="Via\Bundle\VariableProductBundle\Validator\Constraint\VariantCombination">
-            <option name="groups">via</option>
-        </constraint>
+    <class name="Via\Bundle\ProductBundle\Entity\Product">
+        <getter property="masterVariant">
+            <constraint name="Valid" />
+        </getter>
+        <getter property="variants">
+            <constraint name="Valid" />
+        </getter>
         
-        <property name="price">
-            <constraint name="Range">
-            	<option name="min">0</option>
-                <option name="max">99999</option>
-            </constraint>
-        </property>
-        
-    </class>
-    
-    <class name="Via\Bundle\VariableProductBundle\Entity\Option">
         <property name="name">
             <constraint name="NotBlank" />
         </property>
+    </class>   
+    
+    <class name="Via\Bundle\ProductBundle\Entity\Property">
+        <property name="name">
+            <constraint name="NotBlank" />
+        </property>
+        
         <property name="presentation">
             <constraint name="NotBlank" />
         </property>
-    </class>
+              
+    </class> 
     
-    <class name="Via\Bundle\VariableProductBundle\Entity\OptionValue">
+    <class name="Via\Bundle\ProductBundle\Entity\ProductProperty">
+        
         <property name="value">
             <constraint name="NotBlank" />
-        </property>        
+        </property>
+              
     </class>
 
 </constraint-mapping>

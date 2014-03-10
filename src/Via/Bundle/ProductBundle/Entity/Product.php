@@ -26,6 +26,7 @@ class Product implements ProductInterface
     */
     const VARIANT_SELECTION_CHOICE = 'choice';
     const VARIANT_SELECTION_MATCH  = 'match';
+    const DEFAULT_DESCRIPTION_FORMATTER = 'richhtml';
     
     /**
      * @ORM\Id
@@ -143,6 +144,8 @@ class Product implements ProductInterface
         $this->properties = new ArrayCollection();
         $this->variants = new ArrayCollection();
         $this->options = new ArrayCollection();
+        
+        $this->descriptionFormatter = self::DEFAULT_DESCRIPTION_FORMATTER;
         
         $this->setMasterVariant(new Variant());
                 

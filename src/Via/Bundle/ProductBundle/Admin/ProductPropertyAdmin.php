@@ -6,10 +6,11 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Validator\ErrorElement;
 
 class ProductPropertyAdmin extends Admin
 {
-    protected $baseRoutePattern = 'via-product-property';
+    #protected $baseRoutePattern = 'via-product-property';
     
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -20,13 +21,32 @@ class ProductPropertyAdmin extends Admin
         ), array(
             
         ))
+        ;
+        
+        if (!$this->isChild() && !$this->hasParentFieldDescription())
+        {
+            $formMapper->add('product', 'entity', array(
+                'class' => 'ViaProductBundle:Product',
+                'property' => 'name',
+                'label' => 'via.label.product_property.product'
+            ));
+        }
 
-        ->add('value', 'text', array(
-            'label' => 'via.form.option.value',
-
+        $formMapper->add('value', 'text', array(
+            'label' => 'via.form.product_property.value',
+            'required' => true,
         ))
         ;
     }
+    
+//     public function validate(ErrorElement $errorElement, $object)
+//     {
+//         $errorElement
+//         ->with('value')
+//         ->assertNotBlank(array())
+//         ->end()
+//         ;
+//     }
     
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

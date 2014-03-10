@@ -65,7 +65,7 @@ class Variant implements VariantInterface
      *     @ORM\JoinColumn(name="variant_id", referencedColumnName="id", onDelete="CASCADE")
      *   },
      *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="option_value_id", referencedColumnName="id", onDelete="CASCADE")
+     *     @ORM\JoinColumn(name="option_value_id", referencedColumnName="id")
      *   }
      * )
      */
