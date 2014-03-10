@@ -1,3 +1,7 @@
+via_api:
+    resource: "@ViaApiBundle/Resources/config/routing.xml"
+    prefix:   /
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -36,3 +40,7 @@ homepage:
         _controller: FrameworkBundle:Redirect:redirect      
         route: sonata_admin_dashboard
         permanent: true
+        
+via_api:
+    resource: '@ViaApiBundle/Resources/config/routing.xml'
+    prefix: /admin
