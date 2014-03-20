@@ -1,0 +1,10 @@
+via_api:
+    headers:
+        Accept: "application/json"          
+    sandbox:
+        base_url: "http://sandbox.api.via.de"
+        login_path: "/Authentication_JSON_AppService.axd/Login"
+        call_path: "/publicapi/v1/api.svc/"              
+        #service_description: 'Resources/config/Blackbox/V1/webservice.json'
+                  
+    

@@ -1,16 +1,25 @@
-<html>
-<head>
+{% extends 'SonataAdminBundle::standard_layout.html.twig' %}
+ 
 
-</head>
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    {# Add CSS #}
+    {#
+    <link media="all" type="text/css" href="{{ asset('bundles/viaapi/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link media="all" type="text/css" href="{{ asset('bundles/viaapi/css/bootstrap-theme.min.css') }}" rel="stylesheet" />
+    #}
+{% endblock %}
 
-<body>
-Api Test
 
-<div id="wrapper">
-
-</div>
-
-
-</body>
-
-</html>
+{% block notice %}
+    {% for notice_level in ['success','error','info', 'warning'] %}
+        {% set session_var = 'sonata_flash_' ~ notice_level %}
+        {% for flash in app.session.flashbag.get(session_var) %}
+            <div class="alert {{ 'alert-' ~ notice_level }}">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ flash|trans([], 'SonataAdminBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

@@ -27,6 +27,25 @@ class ProductAdmin extends Admin
     {
         $collection->add('generateAction');
         $collection->add('generate', $this->getRouterIdParameter().'/generate');
+        
+        $collection->add('sendToBlackbox');
+        $collection->add('sendToBlackbox', $this->getRouterIdParameter().'/sendToBlackbox');
+    }
+    
+    public function getBatchActions()
+    {
+        // retrieve the default (currently only the delete action) actions
+        $actions = parent::getBatchActions();
+    
+        // check user permissions
+        if($this->hasRoute('edit') && $this->isGranted('EDIT') && $this->hasRoute('delete') && $this->isGranted('DELETE'))
+        {
+            // define calculate action
+            $actions['sendToBlackbox']= array ('label' => 'sendToBlackbox', 'ask_confirmation'  => true );
+    
+        }
+    
+        return $actions;
     }
     
     // protected $translationDomain = 'messages'; // default is 'messages'
@@ -204,6 +223,9 @@ class ProductAdmin extends Admin
             'actions' => array(
                 'show' => array(),
                 'edit' => array(),
+                'sendToBlackbox' => array(
+                    'template' => 'ViaProductBundle:Button:send_to_viaebay_button.html.twig',
+                ),
             ),
         ))
         ;

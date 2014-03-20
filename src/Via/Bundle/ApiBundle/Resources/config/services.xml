@@ -3,18 +3,42 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <!--
+    
     <parameters>
-        <parameter key="via_api.example.class">Via\Bundle\ApiBundle\Example</parameter>
+        <parameter key="via.blackbox.plugin.header.class">Via\Bundle\ApiBundle\EventListener\Blackbox\HeaderSubscriber</parameter>
+        <parameter key="via.blackbox.plugin.auth.class">Via\Bundle\ApiBundle\EventListener\Blackbox\AuthSubscriber</parameter>        
     </parameters>
 
     <services>
-        <service id="via_api.example" class="%via_api.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
+		<service id="via.blackbox.client" class="%guzzle.client.class%">
+			<tag name="guzzle.client"/> 
+			
+			<call method="setDescription">
+	        	<argument type="service" id="via.blackbox.client.service_description"/>
+	    	</call>
+	    	
+	    	<call method="addSubscriber">
+        		<argument type="service" id="guzzle.plugin.cookie"/>
+    		</call>
+			   		
+		</service>
+		
+		<service id="via.blackbox.plugin.header" class="%via.blackbox.plugin.header.class%">
+			<argument id="via.blackbox.plugin.header.headers">%via.blackbox.plugin.header.headers%</argument>
+	    </service> 
+	    
+	    <service id="via.blackbox.plugin.auth" class="%via.blackbox.plugin.auth.class%">			
+	    </service> 
+	    
+	    <service id="guzzle.plugin.cookie" class="%guzzle.plugin.cookie.class%">			
+	    </service> 
+	    
+	    <service id="via.blackbox.client.service_description"
+	         class="%guzzle.service_description.class%"
+	         factory-class="%guzzle.service_description.class%"
+	         factory-method="factory">	         
+	    	<argument>%via.blackbox.client.service_description.file%</argument>
+		</service>
+	          
     </services>
-    -->
 </container>

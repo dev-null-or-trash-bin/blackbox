@@ -5,6 +5,7 @@ imports:
     - { resource: sonata/sonata_block.yml }
     - { resource: sonata/sonata_user.yml }
     - { resource: via/via.yml }
+    - { resource: via/via_api.yml }
 
 framework:
     #esi:             ~

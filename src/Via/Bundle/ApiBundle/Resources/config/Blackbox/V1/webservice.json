@@ -1,0 +1,64 @@
+{
+    "name": "Blackbox",
+    "apiVersion": "v1.0",
+    "baseUrl": "https://sandboxapi.via.de",
+    "operations": {
+        "PostAuthentication": {
+            "httpMethod": "POST",
+            "uri": "Authentication_JSON_AppService.axd/Login",
+            
+            "parameters": {
+                "userName": {
+                    "location": "json",
+                    "type": "string",
+                    "required": true
+                },
+                "password": {
+                    "location": "json",
+                    "type": "string",
+                    "required": true
+                    
+                },
+                "createPersistentCookie": {
+                    "location": "json",
+                    "type": "string",
+                    "default": "false"
+                }
+            },            
+            "responseClass": "AuthOutput"            
+        },
+        "GetProducts": {
+            "httpMethod": "GET",
+            "uri": "publicapi/v1/api.svc/Products",
+            "responseClass": "GetProductsOutput"            
+        }
+    },
+    "models": {
+        
+    	"AuthOutput": {
+                        
+            "type": "object",
+            "properties": {
+                "d": {
+                    "type": "boolean",
+                    "location": "json"
+                }
+            }
+            
+        },    
+        
+    
+        "GetProductsOutput": {
+            "type": "array",
+            "additionalProperties": {
+                "location": "json"
+            }
+        },
+        "GetProductsOutput2": {
+            "type": "array",
+            "items": {
+                "$ref": "Product"
+            }
+        }
+    }
+}
